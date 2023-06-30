@@ -1,10 +1,5 @@
 //병합 후 Types 파일 생기면 임포트 해서 사용
 
-interface User {
-  email: string;
-  password: string;
-}
-
 import { useEffect, useState } from "react";
 
 export const useValid = () => {

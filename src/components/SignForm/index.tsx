@@ -14,7 +14,7 @@ interface SignFormProps extends FormHTMLAttributes<HTMLFormElement> {
   children: ReactNode;
 }
 
-const SignForm = ({ onComplete, children, ...formAttrs }: SignFormProps) => {
+const SignForm = ({ onComplete, ...formAttrs }: SignFormProps) => {
   const { onChangeHandler, userInfo, valid } = useValid();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
