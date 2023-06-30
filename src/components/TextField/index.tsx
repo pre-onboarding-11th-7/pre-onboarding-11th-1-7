@@ -2,13 +2,14 @@ import { InputHTMLAttributes, forwardRef } from "react";
 
 interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
+  testid?: "email-input" | "password-input" | "new-todo-input" | "modify-input";
 }
 
 const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
-  ({ label, ...inputAttrs }, ref) => {
+  ({ label, testid, ...inputAttrs }, ref) => {
     const textField = (
       <div>
-        <input type="text" ref={ref} {...inputAttrs} />
+        <input data-testid={testid} type="text" ref={ref} {...inputAttrs} />
       </div>
     );
 
@@ -18,7 +19,7 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
 
     return (
       <div>
-        {!!label && <p>{label}</p>}
+        {!!label && <label>{label}</label>}
         {textField}
       </div>
     );

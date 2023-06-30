@@ -5,7 +5,6 @@ import { path } from "../../Router";
 const AuthGuardLayout = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  // const token = localStorage.getItem("token");
   const token = localStorage.getItem("auth");
 
   useEffect(() => {
