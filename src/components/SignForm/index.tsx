@@ -1,20 +1,16 @@
-import React from "react";
-import { ReactNode, FormHTMLAttributes, FormEvent } from "react";
-import TextField from "../TextFeild";
+import { FormHTMLAttributes, FormEvent } from "react";
 import { useValid } from "../../hooks/useValid";
-
-//병합 후 Types 파일 생기면 임포트 해서 사용
-interface User {
-  email: string;
-  password: string;
-}
+import { User } from "user";
+import TextField from "../TextField";
+import Button from "../Button";
+import { useLocation } from "react-router-dom";
 
 interface SignFormProps extends FormHTMLAttributes<HTMLFormElement> {
   onComplete: ({ email, password }: User) => void;
-  children: ReactNode;
 }
 
 const SignForm = ({ onComplete, ...formAttrs }: SignFormProps) => {
+  const location = useLocation();
   const { onChangeHandler, userInfo, valid } = useValid();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -25,28 +21,33 @@ const SignForm = ({ onComplete, ...formAttrs }: SignFormProps) => {
   return (
     <form method="post" onSubmit={handleSubmit} {...formAttrs}>
       <TextField
-        data-testid="email-input"
+        label="Email"
         name="email"
-        label="이메일"
-        placeholder="@을 포함한 이메일을 입력해주세요."
-        value={userInfo.email}
+        type="email"
         onChange={onChangeHandler}
+        value={userInfo.email}
+        testid="email-input"
+        placeholder="@를 포함하여 입력해주세요."
       />
       <TextField
-        data-testid="password-input"
-        type="password"
+        label="Password"
         name="password"
-        label="비밀번호"
-        placeholder="8자 이상의 비밀번호를 입력해주세요."
-        value={userInfo.password}
+        type="password"
         onChange={onChangeHandler}
+        value={userInfo.password}
+        testid="password-input"
+        placeholder="8자 이상 입력해주세요."
       />
-      <button
+      <Button
+        label={location.pathname.includes("signin") ? "로그인" : "회원가입"}
         type="submit"
-        data-testid="signin-button"
-        disabled={valid.disabled}>
-        완료
-      </button>
+        testid={
+          location.pathname.includes("signin")
+            ? "signin-button"
+            : "signup-button"
+        }
+        disabled={valid.disabled}
+      />
     </form>
   );
 };

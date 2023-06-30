@@ -1,14 +1,25 @@
 import { type ButtonHTMLAttributes } from "react";
-import { ButtonTestIdEnum } from "../../enum";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   label?: string;
-  testId?: ButtonTestIdEnum;
+  testid?:
+    | "signup-button"
+    | "signin-button"
+    | "new-todo-add-button"
+    | "modify-button"
+    | "delete-button"
+    | "submit-button"
+    | "cancel-button";
 }
 
-const Button = ({ label, type = "button", ...btnAttrs }: ButtonProps) => {
+const Button = ({
+  label,
+  type = "button",
+  testid,
+  ...btnAttrs
+}: ButtonProps) => {
   return (
-    <button type={type} {...btnAttrs}>
+    <button type={type} data-testid={testid} {...btnAttrs}>
       {label}
     </button>
   );

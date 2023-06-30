@@ -2,6 +2,8 @@ import { createBrowserRouter } from "react-router-dom";
 import AuthGuardLayout from "./components/layouts/AuthGuardLayout";
 import HomeLayout from "./components/layouts/HomeLayout";
 import HomePage from "./pages/HomePage";
+import Signin from "./pages/Signin";
+import Signup from "./pages/Siginup";
 
 export const path = {
   HOME: "/",
@@ -18,8 +20,8 @@ const router = createBrowserRouter([
     element: <HomeLayout />,
     children: [
       { path: HOME, element: <HomePage /> },
-      { path: SIGNIN, element: <div>로그인페이지</div> },
-      { path: SIGNUP, element: <div>회원가입페이지</div> },
+      { path: SIGNIN, element: <Signin /> },
+      { path: SIGNUP, element: <Signup /> },
     ],
   },
   {

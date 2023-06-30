@@ -1,16 +1,15 @@
 import { InputHTMLAttributes, forwardRef } from "react";
-import { TextFieldTestIdEnum } from "../../enum";
 
 interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
-  testId?: TextFieldTestIdEnum;
+  testid?: "email-input" | "password-input" | "new-todo-input" | "modify-input";
 }
 
 const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
-  ({ label, testId, ...inputAttrs }, ref) => {
+  ({ label, testid, ...inputAttrs }, ref) => {
     const textField = (
       <div>
-        <input data-testid={testId} type="text" ref={ref} {...inputAttrs} />
+        <input data-testid={testid} type="text" ref={ref} {...inputAttrs} />
       </div>
     );
 
