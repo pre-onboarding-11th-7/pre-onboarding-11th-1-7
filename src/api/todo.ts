@@ -1,11 +1,5 @@
+import { Todo } from "todo";
 import axiosInstance from "./axiosInstance";
-
-interface Todo {
-  id: number;
-  todo: string;
-  isCompleted: boolean;
-  userId: number;
-}
 
 export const createTodo = async (todo: string) => {
   const { data } = await axiosInstance.post<Todo>("/todos", { todo });

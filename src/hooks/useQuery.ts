@@ -1,9 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
+import axios, { AxiosError } from "axios";
+import { HttpFailed } from "http";
 
 interface QueryParams<T> {
   queryFunc: () => Promise<T>;
   onSuccess?: (data: T) => void;
-  onError?: (error: unknown) => void;
+  onError?: (error: AxiosError<HttpFailed>) => void;
 }
 
 const useQuery = <T>({ queryFunc, onSuccess, onError }: QueryParams<T>) => {
@@ -20,9 +22,9 @@ const useQuery = <T>({ queryFunc, onSuccess, onError }: QueryParams<T>) => {
       if (onSuccess) {
         onSuccess(newData);
       }
-    } catch (error) {
-      if (onError) {
-        onError(error);
+    } catch (error: unknown) {
+      if (onError && axios.isAxiosError(error)) {
+        onError(error as AxiosError<HttpFailed>);
       }
     } finally {
       setIsLoading(false);

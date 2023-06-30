@@ -1,9 +1,11 @@
 import { useState } from "react";
+import axios, { AxiosError } from "axios";
+import { HttpFailed } from "http";
 
 interface MutationParams<TData, TVariables> {
   mutationFunc: (variables: TVariables) => Promise<TData>;
   onSuccess?: (data: TData) => void;
-  onError?: (error: unknown) => void;
+  onError?: (error: AxiosError<HttpFailed>) => void;
 }
 
 const useMutation = <TData, TVariables>({
@@ -23,7 +25,7 @@ const useMutation = <TData, TVariables>({
       }
       return data;
     } catch (error) {
-      if (onError) {
+      if (onError && axios.isAxiosError(error)) {
         onError(error);
       }
     } finally {

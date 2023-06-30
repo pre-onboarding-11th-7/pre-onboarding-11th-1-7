@@ -1,9 +1,5 @@
+import { User } from "user";
 import axiosInstance from "./axiosInstance";
-
-interface User {
-  email: string;
-  password: string;
-}
 
 export const signUp = async ({ email, password }: User) => {
   await axiosInstance.post("/auth/signup", {
