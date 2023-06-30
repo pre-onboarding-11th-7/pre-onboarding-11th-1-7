@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import AuthGuardLayout from "./components/layouts/AuthGuardLayout";
 import HomeLayout from "./components/layouts/HomeLayout";
 import HomePage from "./pages/HomePage";
+import TodoPage from "./pages/todo";
 
 export const path = {
   HOME: "/",
@@ -25,7 +26,7 @@ const router = createBrowserRouter([
   {
     path: path.TODO,
     element: <AuthGuardLayout />,
-    children: [{ path: TODO, element: <div>TODO페이지</div> }],
+    children: [{ path: TODO, element: <TodoPage /> }],
   },
 ]);
 
