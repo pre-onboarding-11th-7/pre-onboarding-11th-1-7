@@ -2,7 +2,7 @@ import useMutation from "../useMutation";
 import { updateTodo } from "../../api/todo";
 
 type EditTodoRequest = Parameters<typeof updateTodo>[0];
-type EditTodoResponse = Awaited<ReturnType<typeof updateTodo>> | null;
+export type EditTodoResponse = Awaited<ReturnType<typeof updateTodo>> | null;
 
 interface UseTodoEditOption {
   onSuccess?: (todo: EditTodoResponse) => void;
