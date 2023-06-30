@@ -11,9 +11,9 @@ const useQuery = <T>({ queryFunc, onSuccess, onError }: QueryParams<T>) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const fetch = useCallback(async () => {
-    try {
-      setIsLoading(true);
+    setIsLoading(true);
 
+    try {
       const newData = await queryFunc();
       setData(newData);
 
