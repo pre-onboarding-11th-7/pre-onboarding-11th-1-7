@@ -1,12 +1,29 @@
 import { useState } from "react";
 import { Todo } from "todo";
 import EditTodo from "../EditTodo";
+import useTodoDeletion from "../../hooks/services/useTodoDeletion";
 
-export default function TodoCard({ id, todo, isCompleted }: Todo) {
+export interface refetch {
+  refetch: () => void;
+}
+export default function TodoCard({
+  id,
+  todo,
+  isCompleted,
+  refetch,
+}: Todo & refetch) {
+  const deleteCard = useTodoDeletion({ ...refetch });
   const [isEditMode, setIsEditMode] = useState(false);
 
   const editModeChange = () => {
     setIsEditMode((pre) => !pre);
+  };
+
+  const deleteTodo = async () => {
+    const result = await deleteCard(id);
+    if (result) {
+      refetch();
+    }
   };
   return (
     <li>
@@ -19,12 +36,17 @@ export default function TodoCard({ id, todo, isCompleted }: Todo) {
           todo={todo}
           editModeChange={editModeChange}
           isCompleted={isCompleted}
+          refetch={refetch}
         />
       ) : (
         <>
           <span>{todo}</span>
-          <button data-testid="modify-button">수정</button>
-          <button data-testid="delete-button">삭제</button>
+          <button data-testid="modify-button" onClick={editModeChange}>
+            수정
+          </button>
+          <button data-testid="delete-button" onClick={deleteTodo}>
+            삭제
+          </button>
         </>
       )}
     </li>

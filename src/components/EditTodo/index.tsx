@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import useTodoEdit from "../../hooks/services/useTodoEdit";
 import { Todo } from "todo";
+import { refetch } from "../TodoCard";
 
 interface editTodo {
   id: number;
@@ -8,7 +9,13 @@ interface editTodo {
   isCompleted: boolean;
   editModeChange: () => void;
 }
-const EditTodo = ({ id, todo, editModeChange, isCompleted }: editTodo) => {
+const EditTodo = ({
+  id,
+  todo,
+  editModeChange,
+  isCompleted,
+  refetch,
+}: editTodo & refetch) => {
   const [content, setContent] = useState(todo);
   const mutate = useTodoEdit({ ...editModeChange });
 
@@ -20,6 +27,7 @@ const EditTodo = ({ id, todo, editModeChange, isCompleted }: editTodo) => {
     const result = await mutate({ id, todo: content, isCompleted });
 
     if (result) {
+      refetch();
       editModeChange();
     }
   };

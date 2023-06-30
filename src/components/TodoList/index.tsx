@@ -3,7 +3,7 @@ import useTodoList from "../../hooks/services/useTodoList";
 import TodoCard from "../TodoCard";
 
 const TodoList = () => {
-  const { todoList } = useTodoList();
+  const { todoList, refetch } = useTodoList();
 
   return (
     <div>
@@ -15,6 +15,7 @@ const TodoList = () => {
             todo={todo}
             isCompleted={isCompleted}
             userId={userId}
+            refetch={refetch}
           />
         ))
       ) : (
