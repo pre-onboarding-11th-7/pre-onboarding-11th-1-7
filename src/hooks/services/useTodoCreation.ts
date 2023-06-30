@@ -20,7 +20,7 @@ const useTodoCreation = ({ onSuccess }: UseTodoCreationOption) => {
     },
 
     onSuccess: (todo) => {
-      if (onSuccess) {
+      if (onSuccess && todo) {
         onSuccess(todo);
       }
     },
