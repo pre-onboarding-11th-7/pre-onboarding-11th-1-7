@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Todo } from "todo";
 import EditTodo from "../EditTodo";
 import useTodoDeletion from "../../hooks/services/useTodoDeletion";
+import useTodoEdit from "../../hooks/services/useTodoEdit";
 
 export interface refetch {
   refetch: () => void;
@@ -18,15 +19,24 @@ export default function TodoCard({
   const editModeChange = () => {
     setIsEditMode((pre) => !pre);
   };
+  const mutate = useTodoEdit({ ...editModeChange });
 
   const deleteTodo = async () => {
     await deleteCard(id);
     refetch();
   };
+  const handleCheckBox = async () => {
+    await mutate({ id, todo, isCompleted: !isCompleted });
+    refetch();
+  };
   return (
     <li>
       <label>
-        <input type="checkbox" />
+        <input
+          type="checkbox"
+          checked={isCompleted}
+          onChange={handleCheckBox}
+        />
       </label>
       {isEditMode ? (
         <EditTodo
@@ -35,6 +45,7 @@ export default function TodoCard({
           editModeChange={editModeChange}
           isCompleted={isCompleted}
           refetch={refetch}
+          mutate={mutate}
         />
       ) : (
         <>

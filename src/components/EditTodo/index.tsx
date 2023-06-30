@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-import useTodoEdit from "../../hooks/services/useTodoEdit";
-import { Todo } from "todo";
 import { refetch } from "../TodoCard";
+import { Todo } from "todo";
+import { EditTodoResponse } from "../../hooks/services/useTodoEdit";
 
 interface editTodo {
   id: number;
   todo: string;
   isCompleted: boolean;
   editModeChange: () => void;
+  mutate: (
+    variables: Omit<Todo, "userId">
+  ) => Promise<EditTodoResponse | undefined>;
 }
 const EditTodo = ({
   id,
@@ -15,9 +18,9 @@ const EditTodo = ({
   editModeChange,
   isCompleted,
   refetch,
+  mutate,
 }: editTodo & refetch) => {
   const [content, setContent] = useState(todo);
-  const mutate = useTodoEdit({ ...editModeChange });
 
   const changeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setContent(event.target.value);
