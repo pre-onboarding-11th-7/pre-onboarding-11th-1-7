@@ -1,16 +1,31 @@
 import { createBrowserRouter } from "react-router-dom";
-import App from "./App";
+import AuthGuardLayout from "./components/layouts/AuthGuardLayout";
+import HomeLayout from "./components/layouts/HomeLayout";
+import HomePage from "./pages/HomePage";
+
+export const path = {
+  HOME: "/",
+  SIGNUP: "/signup",
+  SIGNIN: "/signin",
+  TODO: "/todo",
+};
+
+const { HOME, SIGNIN, SIGNUP, TODO } = path;
 
 const router = createBrowserRouter([
   {
-    path: "",
-    element: <App />,
-    children: [],
-    errorElement: <div>I am Error</div>,
+    path: HOME,
+    element: <HomeLayout />,
+    children: [
+      { path: HOME, element: <HomePage /> },
+      { path: SIGNIN, element: <div>로그인페이지</div> },
+      { path: SIGNUP, element: <div>회원가입페이지</div> },
+    ],
   },
   {
-    path: "*",
-    element: <div>404</div>,
+    path: path.TODO,
+    element: <AuthGuardLayout />,
+    children: [{ path: TODO, element: <div>TODO페이지</div> }],
   },
 ]);
 
