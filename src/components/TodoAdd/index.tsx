@@ -1,7 +1,8 @@
 import { FormEvent, useRef } from "react";
 import useTodoCreation from "../../hooks/services/useTodoCreation";
+import { Props } from "../TodoList";
 
-export default function TodoAdd() {
+export default function TodoAdd({ refetch }: Props) {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const addTodo = useTodoCreation({});
 
@@ -12,6 +13,7 @@ export default function TodoAdd() {
     }
     await addTodo(inputRef.current.value);
     inputRef.current.value = "";
+    refetch();
   };
   return (
     <form method="post" onSubmit={handleSubmit}>

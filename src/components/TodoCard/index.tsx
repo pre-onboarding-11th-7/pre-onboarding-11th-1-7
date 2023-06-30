@@ -20,10 +20,8 @@ export default function TodoCard({
   };
 
   const deleteTodo = async () => {
-    const result = await deleteCard(id);
-    if (result) {
-      refetch();
-    }
+    await deleteCard(id);
+    refetch();
   };
   return (
     <li>

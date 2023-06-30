@@ -1,10 +1,11 @@
-import React from "react";
-import useTodoList from "../../hooks/services/useTodoList";
+import { Todo } from "todo";
 import TodoCard from "../TodoCard";
+export interface Props {
+  todoList?: Todo[] | undefined;
+  refetch: () => Promise<void>;
+}
 
-const TodoList = () => {
-  const { todoList, refetch } = useTodoList();
-
+const TodoList = ({ todoList, refetch }: Props) => {
   return (
     <div>
       {todoList ? (
